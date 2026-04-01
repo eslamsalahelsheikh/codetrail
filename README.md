@@ -144,7 +144,7 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ### Development
 
 ```bash
-git clone https://github.com/codetrail/codetrail.git
+git clone https://github.com/eslamsalahelsheikh/codetrail.git
 cd codetrail
 npm install
 npm run watch

@@ -14,7 +14,7 @@ Thank you for considering contributing to CodeTrail! This document provides guid
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/codetrail/codetrail.git
+   git clone https://github.com/eslamsalahelsheikh/codetrail.git
    cd codetrail
    ```
 
@@ -67,12 +67,12 @@ src/
 
 ### Reporting Bugs
 
-- Use the [Bug Report](https://github.com/codetrail/codetrail/issues/new?template=bug_report.md) template.
+- Use the [Bug Report](https://github.com/eslamsalahelsheikh/codetrail/issues/new?template=bug_report.md) template.
 - Include your VS Code version, OS, and steps to reproduce.
 
 ### Suggesting Features
 
-- Use the [Feature Request](https://github.com/codetrail/codetrail/issues/new?template=feature_request.md) template.
+- Use the [Feature Request](https://github.com/eslamsalahelsheikh/codetrail/issues/new?template=feature_request.md) template.
 - Explain the problem you're trying to solve, not just the solution.
 
 ### Pull Requests

@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/codetrail/codetrail"
+    "url": "https://github.com/eslamsalahelsheikh/codetrail"
   },
   "engines": {
     "vscode": "^1.85.0"
