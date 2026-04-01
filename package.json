@@ -1,0 +1,210 @@
+{
+  "name": "codetrail",
+  "displayName": "CodeTrail",
+  "description": "Automatic decision memory for developers — captures why you wrote your code, not just what you wrote.",
+  "version": "0.1.0",
+  "publisher": "codetrail",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codetrail/codetrail"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "keywords": [
+    "context",
+    "memory",
+    "decisions",
+    "productivity",
+    "git",
+    "developer-tools"
+  ],
+  "icon": "media/icon.png",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codetrail.summarizeBranch",
+        "title": "Summarize Current Branch",
+        "category": "CodeTrail",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "codetrail.generatePRDescription",
+        "title": "Generate PR Description",
+        "category": "CodeTrail",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "codetrail.showTimeline",
+        "title": "Show Branch Timeline",
+        "category": "CodeTrail",
+        "icon": "$(timeline-view-icon)"
+      },
+      {
+        "command": "codetrail.toggleTracking",
+        "title": "Pause/Resume Tracking",
+        "category": "CodeTrail",
+        "icon": "$(debug-pause)"
+      },
+      {
+        "command": "codetrail.clearBranchData",
+        "title": "Clear Current Branch Data",
+        "category": "CodeTrail"
+      },
+      {
+        "command": "codetrail.clearAllData",
+        "title": "Clear All Data",
+        "category": "CodeTrail"
+      },
+      {
+        "command": "codetrail.refreshSidebar",
+        "title": "Refresh Sidebar",
+        "category": "CodeTrail",
+        "icon": "$(refresh)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codetrail",
+          "title": "CodeTrail",
+          "icon": "media/sidebar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "codetrail": [
+        {
+          "type": "webview",
+          "id": "codetrail.sidebar",
+          "name": "CodeTrail"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "codetrail.summarizeBranch",
+          "when": "view == codetrail.sidebar",
+          "group": "navigation"
+        },
+        {
+          "command": "codetrail.refreshSidebar",
+          "when": "view == codetrail.sidebar",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "CodeTrail",
+      "properties": {
+        "codetrail.tracking.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable all tracking."
+        },
+        "codetrail.tracking.files": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track which files you open and how long you spend in them."
+        },
+        "codetrail.tracking.edits": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track which regions of code you edit."
+        },
+        "codetrail.tracking.searches": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track search queries in the editor."
+        },
+        "codetrail.tracking.terminal": {
+          "type": "boolean",
+          "default": true,
+          "description": "Track terminal commands you run."
+        },
+        "codetrail.tracking.excludePatterns": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": [
+            "**/node_modules/**",
+            "**/.git/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.vscode/**"
+          ],
+          "description": "Glob patterns for files to exclude from tracking."
+        },
+        "codetrail.privacy.retentionDays": {
+          "type": "number",
+          "default": 90,
+          "minimum": 7,
+          "maximum": 365,
+          "description": "Number of days to keep session data before auto-deleting."
+        },
+        "codetrail.ai.provider": {
+          "type": "string",
+          "enum": ["ollama", "none"],
+          "default": "ollama",
+          "description": "AI provider for generating summaries."
+        },
+        "codetrail.ai.ollamaEndpoint": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama API endpoint URL."
+        },
+        "codetrail.ai.ollamaModel": {
+          "type": "string",
+          "default": "llama3.1",
+          "description": "Ollama model to use for summarization."
+        },
+        "codetrail.ai.autoSummarize": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically generate summary when switching branches."
+        },
+        "codetrail.ui.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show CodeTrail status in the status bar."
+        },
+        "codetrail.ui.showHoverContext": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show context tooltips when hovering over edited code."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "node esbuild.js --production",
+    "watch": "node esbuild.js --watch",
+    "lint": "eslint src/ --ext .ts,.tsx",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  },
+  "dependencies": {
+    "simple-git": "^3.22.0"
+  }
+}
